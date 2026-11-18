@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SINGH TYRES & MOTORS | M PERFORMANCE CARE & 3D ALIGNMENT | MEERUT</title>
+  <meta name="description" content="Singh Tyres & Motors, Meerut. Precision engineered 3D laser wheel alignment, multi-brand tyre sales, aviation nitrogen inflation, and 24/7 NH58 highway breakdown recovery.">
+  <meta name="keywords" content="Singh Tyres Meerut, 3D Wheel Alignment, NH58 Breakdown, Michelin Bridgestone Meerut, Car repair Meerut">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SINGH TYRES & MOTORS | M PERFORMANCE AUTOMOTIVE HUB">
+  <meta property="og:description" content="Precision 3D Laser Alignment, High-Performance Tyres & 24/7 NH58 Highway Assistance.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Inter (300 Light, 400 Regular, 700 Bold) for strict BMW Type Next Latin substitute -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 (Clean monochrome icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#000000',
+            surface: {
+              soft: '#0d0d0d',
+              card: '#1a1a1a',
+              elevated: '#262626',
+              carbon: '#2b2b2b',
+            },
+            hairline: {
+              DEFAULT: '#3c3c3c',
+              strong: '#262626',
+            },
+            m: {
+              blueLight: '#0066b1',
+              blueDark: '#1c69d4',
+              red: '#e22718',
+            },
+            text: {
+              primary: '#ffffff',
+              body: '#bbbbbb',
+              strong: '#e6e6e6',
+              muted: '#7e7e7e',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          letterSpacing: {
+            machined: '1.5px',
+            tighthead: '-0.5px',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- GSAP & Canvas Confetti -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <style>
+    /* =================================================================
+       BMW M DESIGN SYSTEM CORE STYLES (FROM DESIGN.md)
+       ================================================================= */
+    :root {
+      --canvas: #000000;
+      --surface-soft: #0d0d0d;
+      --surface-card: #1a1a1a;
+      --surface-elevated: #262626;
+      --carbon-gray: #2b2b2b;
+      --hairline: #3c3c3c;
+      --m-blue-light: #0066b1;
+      --m-blue-dark: #1c69d4;
+      --m-red: #e22718;
+      --text-primary: #ffffff;
+      --text-body: #bbbbbb;
+      --text-muted: #7e7e7e;
+    }
+
+    * {
+      box-sizing: border-box;
+      border-radius: 0px !important; /* Strict 0px radius rule across the system */
+    }
+
+    /* Exceptions for circular icon buttons and radio pills */
+    .btn-icon-circle, .color-pill, .badge-circle, .audio-circle {
+      border-radius: 9999px !important;
+    }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--text-body);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-weight: 300; /* Light 300 signature body weight */
+      line-height: 1.5;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Headings: UPPERCASE 700 with tight tracking */
+    h1, h2, h3, h4, .display-head {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    /* Signature M Tricolor Stripe Divider (4px tall) */
+    .m-stripe-divider {
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(90deg, 
+        #0066b1 0%, #0066b1 33.33%, 
+        #1c69d4 33.33%, #1c69d4 66.66%, 
+        #e22718 66.66%, #e22718 100%
+      );
+      display: block;
+    }
+
+    .m-stripe-badge {
+      display: inline-flex;
+      height: 14px;
+      width: 22px;
+      background: linear-gradient(90deg, 
+        #0066b1 0%, #0066b1 33.33%, 
+        #1c69d4 33.33%, #1c69d4 66.66%, 
+        #e22718 66.66%, #e22718 100%
+      );
+      transform: skewX(-16deg);
+    }
+
+    /* Unified Normal Size Logo */
+    .brand-logo-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background-color: #000000;
+      height: 40px;
+      text-decoration: none;
+      transition: border-color 0.2s ease;
+    }
+    .brand-logo-container:hover {
+      border-color: #ffffff;
+    }
+
+    /* Signature BMW M Buttons */
+    .button-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--canvas);
+      color: var(--text-primary);
+      border: 1px solid #ffffff;
+      padding: 14px 32px;
+      height: 48px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+    .button-primary:hover {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .button-primary-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      color: var(--text-primary);
+      border: 1px solid #ffffff;
+      padding: 14px 32px;
+      height: 48px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+    .button-primary-outline:hover {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--surface-card);
+      color: var(--text-primary);
+      border: 1px solid var(--hairline);
+      padding: 14px 28px;
+      height: 48px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+      white-space: nowrap;
+    }
+    .button-secondary:hover {
+      border-color: #ffffff;
+      background-color: var(--surface-elevated);
+    }
+
+    /* Circular Icon Buttons */
+    .button-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 9999px !important;
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .button-icon:hover {
+      border-color: #ffffff;
+      background-color: var(--surface-elevated);
+    }
+
+    /* BMW M Text Link with arrow */
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .text-link i {
+      margin-left: 8px;
+      transition: transform 0.2s ease;
+    }
+    .text-link:hover i {
+      transform: translateX(4px);
+    }
+
+    /* Spec Cells (spec-cell) */
+    .spec-cell {
+      background-color: var(--surface-soft);
+      border: 1px solid var(--hairline);
+      padding: 24px;
+    }
+
+    /* Category Tab Styles */
+    .category-tab {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-body);
+      padding: 12px 16px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .category-tab:hover {
+      color: #ffffff;
+    }
+    .category-tab.active {
+      color: #ffffff;
+      border-bottom: 2px solid #ffffff;
+    }
+
+    /* Inputs */
+    .text-input {
+      background-color: var(--surface-card);
+      border: 1px solid var(--hairline);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 300;
+      height: 48px;
+      padding: 12px 16px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .text-input:focus {
+      border-color: #ffffff;
+    }
+
+    /* Ticker */
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-ticker {
+      display: flex;
+      width: 200%;
+      animation: ticker 30s linear infinite;
+    }
+    .animate-ticker:hover {
+      animation-play-state: paused;
+    }
+
+    /* Continuous Drift Smoke Animation */
+    @keyframes driftSmokePulse {
+      0% { opacity: 0.25; transform: scale(1) translateX(0); }
+      50% { opacity: 0.55; transform: scale(1.08) translateX(-20px); }
+      100% { opacity: 0.25; transform: scale(1) translateX(0); }
+    }
+    .animate-smoke {
+      animation: driftSmokePulse 4s infinite ease-in-out;
+    }
+
+    /* BMW Angel Eye Glow Effect */
+    @keyframes bmwEyePulse {
+      0%, 100% { filter: drop-shadow(0 0 15px rgba(255,255,255,0.8)) drop-shadow(0 0 35px #0066b1); opacity: 0.95; }
+      50% { filter: drop-shadow(0 0 25px #ffffff) drop-shadow(0 0 60px #1c69d4); opacity: 1; }
+    }
+    .bmw-eyes-glow {
+      animation: bmwEyePulse 3s infinite ease-in-out;
+    }
+
+    /* Audio Equalizer Bars */
+    .audio-bar {
+      width: 2px;
+      height: 12px;
+      background: #ffffff;
+      display: inline-block;
+      margin: 0 1px;
+      animation: eqPulse 1.2s infinite ease-in-out;
+    }
+    .audio-bar:nth-child(2) { animation-delay: 0.2s; height: 16px; }
+    .audio-bar:nth-child(3) { animation-delay: 0.4s; height: 10px; }
+    .audio-bar:nth-child(4) { animation-delay: 0.1s; height: 14px; }
+    @keyframes eqPulse {
+      0%, 100% { transform: scaleY(0.3); }
+      50% { transform: scaleY(1.2); }
+    }
+    .audio-paused .audio-bar {
+      animation: none;
+      transform: scaleY(0.3);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #3c3c3c;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7e7e7e;
+    }
+
+    /* =================================================================
+       MOBILE-FIRST RESPONSIVE OPTIMIZATIONS
+       ================================================================= */
+    .mobile-safe-bottom {
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
+
+    @media (max-width: 640px) {
+      /* Touch-Friendly Buttons without text truncation or overflow */
+      .button-primary, .button-primary-outline, .button-secondary {
+        min-height: 46px;
+        padding: 10px 16px;
+        font-size: 12px;
+        letter-spacing: 1px;
+        white-space: normal;
+        text-align: center;
+      }
+      
+      /* Essential: 16px prevents iOS Safari auto-zoom on input focus */
+      .text-input {
+        font-size: 16px !important;
+        height: 48px;
+        padding: 10px 14px;
+      }
+
+      /* Compact Spec Cells on small viewports */
+      .spec-cell {
+        padding: 14px 10px !important;
+      }
+
+      /* Logo container compact sizing for 320px-380px viewports */
+      .brand-logo-container {
+        padding: 4px 10px;
+        height: 38px;
+        gap: 8px;
+      }
+
+      /* Smooth touch scrolling */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="selection:bg-white selection:text-black pb-24 sm:pb-0">
+
+  <!-- ================= TOP M STRIPE DIVIDER ================= -->
+  <div class="m-stripe-divider"></div>
+
+  <!-- ================= TOP NAVIGATION (CLEAN 64PX BAR) ================= -->
+  <header id="navbar" class="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-hairline h-16 flex items-center transition-all duration-200">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 w-full flex items-center justify-between">
+      
+      <!-- Unified Single Logo in Normal Length and Height -->
+      <a href="#" class="brand-logo-container">
+        <span class="m-stripe-badge"></span>
+        <span class="text-xs sm:text-sm font-bold tracking-tight text-white uppercase whitespace-nowrap">SINGH TYRES &amp; MOTORS</span>
+      </a>
+
+      <!-- Right Action Cluster: Contact Button -->
+      <div class="flex items-center space-x-2 sm:space-x-4">
+        <!-- Contact Button Redirecting Directly to Bottom Contact Section -->
+        <a href="#location-hours" class="button-primary text-[11px] sm:text-xs tracking-machined py-2 sm:py-2.5 px-3.5 sm:px-6 h-9 sm:h-10 inline-flex items-center">
+          CONTACT
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= HERO PHOTO BAND (CONTINUOUS DRIFTING BMW VISUAL) ================= -->
+  <section class="relative bg-black border-b border-hairline overflow-hidden">
+    
+    <!-- Full-Bleed Dashing Background: Continuous Drifting BMW Tyres Smoke Visual -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      
+      <!-- Looping Video of Sports Car Drifting / Tyre Smoke from User -->
+      <video autoplay loop muted playsinline class="w-full h-full object-cover object-center opacity-70 scale-105 transition-transform duration-1000">
+        <source src="https://video-previews.elements.envatousercontent.com/0ad79989-052c-48bc-9a5c-b2da8673b5d7/watermarked_preview/watermarked_preview.mp4" type="video/mp4">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-car-drifting-on-the-asphalt-43187-large.mp4" type="video/mp4">
+      </video>
+
+      <!-- Fallback High-Res Drifting Image if video loading -->
+      <!-- <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=2000&q=85" alt="BMW M Performance Tyres Drifting Continuously" class="absolute inset-0 w-full h-full object-cover object-center opacity-40 mix-blend-screen"> -->
+
+      <!-- Dynamic Billowing Tyre Smoke Particle Canvas Overlay -->
+      <canvas id="drift-smoke-canvas" class="absolute inset-0 w-full h-full opacity-60"></canvas>
+
+      <!-- Dark Vignette Overlays for Crisp Typographic Legibility -->
+      <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60"></div>
+    </div>
+
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 pt-5 sm:pt-7 lg:pt-8 pb-10 sm:pb-12 lg:pb-14 w-full relative z-10">
+      <div class="max-w-3xl space-y-5 sm:space-y-6">
+        
+        <!-- Google Verified 5.0 Rating Tag -->
+        <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-xs tracking-machined text-text-muted uppercase">
+          <span class="m-stripe-badge"></span>
+          <span class="text-white font-bold">5.0 GOOGLE RATING</span>
+          <span class="text-hairline">/</span>
+          <span>1,200+ VERIFIED DRIVERS IN MEERUT</span>
+        </div>
+
+        <!-- Main Heavy UPPERCASE Headline (700 Display) -->
+        <div class="space-y-3 sm:space-y-4">
+          <h1 class="text-3xl sm:text-5xl xl:text-7xl font-bold uppercase tracking-tighthead text-white leading-[1.08]">
+            SINGH TYRES &amp; MOTORS.
+          </h1>
+          <p class="text-base sm:text-xl lg:text-2xl font-light text-text-body max-w-2xl leading-relaxed">
+            Precision 3D optical wheel alignment, multi-brand high-performance tyres, and 24/7 rapid roadside recovery along NH58 Meerut.
+          </p>
+        </div>
+
+        <!-- Action Buttons: Full-width touch targets on mobile -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-1 sm:pt-2">
+          <a href="https://maps.google.com/?cid=17124112142667563739" target="_blank" rel="noopener" class="button-primary w-full sm:w-auto text-center justify-center">
+            GET DIRECTIONS <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+          </a>
+
+          <a href="#location-hours" class="button-primary-outline w-full sm:w-auto text-center justify-center">
+            BOOK APPOINTMENT
+          </a>
+
+          <a href="#sports-car-studio" class="button-secondary w-full sm:w-auto text-center justify-center">
+            SPORTS CAR STUDIO
+          </a>
+        </div>
+
+        <!-- 4-Up Engineering Spec Cells in Hero -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-0 border-t border-l border-hairline mt-5 sm:mt-6">
+          <div class="spec-cell border-r border-b">
+            <div class="text-xl sm:text-3xl font-bold text-white tracking-tight">15+</div>
+            <div class="text-[10px] sm:text-[11px] font-bold text-text-muted tracking-machined uppercase mt-1">YEARS TRUST</div>
+          </div>
+          <div class="spec-cell border-r border-b">
+            <div class="text-xl sm:text-3xl font-bold text-white tracking-tight">50K+</div>
+            <div class="text-[10px] sm:text-[11px] font-bold text-text-muted tracking-machined uppercase mt-1">TYRES FITTED</div>
+          </div>
+          <div class="spec-cell border-r border-b">
+            <div class="text-xl sm:text-3xl font-bold text-white tracking-tight">0.01°</div>
+            <div class="text-[10px] sm:text-[11px] font-bold text-text-muted tracking-machined uppercase mt-1">3D ACCURACY</div>
+          </div>
+          <div class="spec-cell border-r border-b">
+            <div class="text-xl sm:text-3xl font-bold text-white tracking-tight">24/7</div>
+            <div class="text-[10px] sm:text-[11px] font-bold text-text-muted tracking-machined uppercase mt-1">NH58 RESCUE</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4PX M TRICOLOR ACCENT ================= -->
+  <div class="m-stripe-divider"></div>
+
+  <!-- ================= AUTHORIZED BRAND PARTNERS (HAIRLINE STRIP) ================= -->
+  <section class="bg-surface-soft border-b border-hairline py-4 sm:py-6 overflow-hidden">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 mb-2 sm:mb-3 flex items-center justify-between">
+      <div class="flex items-center space-x-2 text-[11px] sm:text-xs tracking-machined text-text-muted uppercase">
+        <span class="m-stripe-badge"></span>
+        <span class="text-white font-bold">AUTHORIZED OEM BRAND PARTNERS:</span>
+      </div>
+    </div>
+
+    <!-- Minimal Monochrome Marquee -->
+    <div class="relative w-full overflow-hidden border-t border-hairline pt-3 sm:pt-4">
+      <div class="animate-ticker flex items-center space-x-8 sm:space-x-14 whitespace-nowrap text-base sm:text-lg font-bold tracking-tight text-text-muted">
+        <span class="hover:text-white transition">MICHELIN</span>
+        <span>•</span>
+        <span class="hover:text-white transition">BRIDGESTONE</span>
+        <span>•</span>
+        <span class="hover:text-white transition">CONTINENTAL</span>
+        <span>•</span>
+        <span class="hover:text-white transition">PIRELLI</span>
+        <span>•</span>
+        <span class="hover:text-white transition">GOODYEAR</span>
+        <span>•</span>
+        <span class="hover:text-white transition">YOKOHAMA</span>
+        <span>•</span>
+        <span class="hover:text-white transition">APOLLO</span>
+        <span>•</span>
+        <span class="hover:text-white transition">MRF</span>
+        <span>•</span>
+        <span class="hover:text-white transition">CEAT</span>
+        <span>•</span>
+        <span class="hover:text-white transition">JK TYRE</span>
+        <span>•</span>
+
+        <!-- Repeated loop -->
+        <span class="hover:text-white transition">MICHELIN</span>
+        <span>•</span>
+        <span class="hover:text-white transition">BRIDGESTONE</span>
+        <span>•</span>
+        <span class="hover:text-white transition">CONTINENTAL</span>
+        <span>•</span>
+        <span class="hover:text-white transition">PIRELLI</span>
+        <span>•</span>
+        <span class="hover:text-white transition">GOODYEAR</span>
+        <span>•</span>
+        <span class="hover:text-white transition">YOKOHAMA</span>
+        <span>•</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CORE SERVICES (3-UP GRID WITH HAIRLINES) ================= -->
+  <section id="services" class="py-14 sm:py-24 bg-black border-b border-hairline">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+      
+      <!-- Section Header -->
+      <div class="max-w-3xl mb-10 sm:mb-16 space-y-3 sm:space-y-4">
+        <div class="flex items-center space-x-2 text-[11px] sm:text-xs tracking-machined text-text-muted uppercase">
+          <span class="m-stripe-badge"></span>
+          <span>PRECISION MOTORSPORT DISCIPLINE</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tighthead text-white">
+          PRECISION WORKSHOP CAPABILITIES.
+        </h2>
+        <p class="text-sm sm:text-base text-text-body font-light">
+          Engineered tyre mounting, computerized 4-camera laser wheel alignment, pure aviation nitrogen inflation, and certified motor care along the Delhi-Meerut expressway.
+        </p>
+      </div>
+
+      <!-- 3-Up Cards Grid (Strict 0px Corners & 1px Hairline Outlines) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        
+        <!-- Service 1: Multi-Brand Tyre Sales -->
+        <div class="border border-hairline bg-surface-card flex flex-col justify-between">
+          <div class="relative h-48 sm:h-56 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1578844251758-2f71da64c96f?auto=format&fit=crop&w=800&q=80" alt="High Performance Tyre Sales" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              01 // OEM TYRE SALES
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">Multi-Brand Tyre Sales</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                Authorized stockist for Michelin, Bridgestone, Continental, Pirelli, and Yokohama. Factory-fresh manufacturing dates with official manufacturer warranty registration and computerized dynamic wheel balancing.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-text-muted">ALL RIM SIZES 14"–22"</span>
+              <a href="#location-hours" class="text-link">INQUIRE <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 2: 3D Wheel Alignment & Balancing -->
+        <div class="border border-hairline bg-surface-card flex flex-col justify-between">
+          <div class="relative h-48 sm:h-56 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80" alt="3D Laser Alignment Bay" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              02 // OPTICAL 3D ALIGNMENT
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">3D Laser Wheel Alignment</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                German 4-camera optical 3D measurement calibrated to 0.01° precision. Adjusts Camber, Caster, and Toe angles to eliminate tyre shoulder wear, high-speed steering vibration, and highway pulling.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-text-muted">15 MIN EXPRESS CALIBRATION</span>
+              <a href="#location-hours" class="text-link">BOOK 3D BAY <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 3: Nitrogen Inflation -->
+        <div class="border border-hairline bg-surface-card flex flex-col justify-between">
+          <div class="relative h-48 sm:h-56 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" alt="Nitrogen Gas Inflation" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              03 // AVIATION NITROGEN
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">99.9% Pure Nitrogen Station</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                Dry, inert nitrogen molecules eliminate highway pressure spikes, reduce tyre running temperature by up to 15°C, prevent rim oxidation, and guard against high-speed blowout risks on NH58.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-text-muted">DUAL HOSE FLUSH</span>
+              <a href="#location-hours" class="text-link">DRIVE IN <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 4: Precision Puncture Repair -->
+        <div class="border border-hairline bg-surface-card flex flex-col justify-between">
+          <div class="relative h-48 sm:h-56 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1543465077-db45d34b88a5?auto=format&fit=crop&w=800&q=80" alt="Puncture Repair & Vulcanization" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              04 // MUSHROOM VULCANIZATION
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">Precision Puncture Repair</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                Internal tyre demounting and German chemical mushroom patch vulcanization. Restores both the puncture canal and airtight inner liner without damaging internal steel cords or scratching alloy rims.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-text-muted">PERMANENT VULCANIZED SEAL</span>
+              <a href="tel:08126257677" class="text-link">CALL FOR REPAIR <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 5: General Motor Servicing -->
+        <div class="border border-hairline bg-surface-card flex flex-col justify-between">
+          <div class="relative h-48 sm:h-56 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80" alt="Automotive Diagnostic & Motor Servicing" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              05 // MECHANICAL DIAGNOSTICS
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">General Motor Servicing</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                Full-synthetic engine lubricants, brake pad replacement and disc skimming, suspension bushing inspection, electronic OBD2 engine diagnostics, and multi-point roadworthiness inspection.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-text-muted">CASTROL / MOBIL 1 CERTIFIED</span>
+              <a href="#location-hours" class="text-link">BOOK SERVICE <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 6: 24/7 NH58 Highway Assistance -->
+        <div class="border border-hairline bg-surface-card flex flex-col justify-between">
+          <div class="relative h-48 sm:h-56 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80" alt="Highway Roadside Assistance" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              06 // EMERGENCY RESCUE
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">NH58 Highway Breakdown</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                Mobile emergency rescue van equipped with hydraulic lifting jacks, on-site tyre changing equipment, heavy-duty compressors, and battery jump-start units along the Delhi-Meerut Expressway.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-text-muted">20-30 MIN RESPONSE TIME</span>
+              <a href="tel:08126257677" class="text-link">DISPATCH UNIT <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= DASHING SPORTS CAR STUDIO (REPLACED WHEEL CANVAS AS PER REVIEW 7 & 8) ================= -->
+  <section id="sports-car-studio" class="py-14 sm:py-24 bg-surface-soft border-b border-hairline">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <!-- Controls & Specification Hierarchy -->
+        <div class="lg:col-span-5 space-y-6 sm:space-y-8">
+          
+          <div class="flex items-center space-x-2 text-[11px] sm:text-xs tracking-machined text-text-muted uppercase">
+            <span class="m-stripe-badge"></span>
+            <span>M PERFORMANCE MOTORSPORT STUDIO</span>
+          </div>
+
+          <div class="space-y-2 sm:space-y-3">
+            <h2 class="text-2xl sm:text-4xl font-bold uppercase tracking-tighthead text-white">
+              HIGH-PERFORMANCE VEHICLE CARE.
+            </h2>
+            <p class="text-sm text-text-body font-light leading-relaxed">
+              Every high-performance sports coupe and luxury SUV demands laser-accurate wheel geometry, dynamic balancing, and OEM-calibrated tire compound matching.
+            </p>
+          </div>
+
+          <!-- Interactive Sports Car Controls Panel -->
+          <div class="bg-surface-card border border-hairline p-4 sm:p-6 space-y-4 sm:space-y-6">
+            
+            <!-- Exterior Color Switcher -->
+            <div>
+              <div class="text-[11px] sm:text-xs font-bold tracking-machined uppercase text-white mb-2.5">
+                1. M EXTERIOR FINISH
+              </div>
+              <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
+                <button class="car-color-btn active button-secondary text-[10px] sm:text-xs h-10 px-1 sm:px-2 border-white text-white flex items-center justify-center text-center truncate" data-car="green">
+                  <span class="sm:hidden">M GREEN</span>
+                  <span class="hidden sm:inline">ISLE OF MAN GREEN</span>
+                </button>
+                <button class="car-color-btn button-secondary text-[10px] sm:text-xs h-10 px-1 sm:px-2 flex items-center justify-center text-center truncate" data-car="white">
+                  <span class="sm:hidden">M WHITE</span>
+                  <span class="hidden sm:inline">ALPINE WHITE</span>
+                </button>
+                <button class="car-color-btn button-secondary text-[10px] sm:text-xs h-10 px-1 sm:px-2 flex items-center justify-center text-center truncate" data-car="frozen">
+                  <span class="sm:hidden">FROZEN</span>
+                  <span class="hidden sm:inline">FROZEN GREY</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic View Angle Switcher -->
+            <div>
+              <div class="text-[11px] sm:text-xs font-bold tracking-machined uppercase text-white mb-2.5">
+                2. VIEW CAMERA PERSPECTIVE
+              </div>
+              <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
+                <button class="car-angle-btn active button-secondary text-[10px] sm:text-xs h-10 px-1 sm:px-2 border-white text-white flex items-center justify-center text-center truncate" data-angle="drift">
+                  <span class="sm:hidden">DRIFT</span>
+                  <span class="hidden sm:inline">HIGH-SPEED DRIFT</span>
+                </button>
+                <button class="car-angle-btn button-secondary text-[10px] sm:text-xs h-10 px-1 sm:px-2 flex items-center justify-center text-center truncate" data-angle="front">
+                  <span class="sm:hidden">STANCE</span>
+                  <span class="hidden sm:inline">TRACK STANCE</span>
+                </button>
+                <button class="car-angle-btn button-secondary text-[10px] sm:text-xs h-10 px-1 sm:px-2 flex items-center justify-center text-center truncate" data-angle="detail">
+                  <span class="sm:hidden">BRAKE</span>
+                  <span class="hidden sm:inline">WHEEL &amp; BRAKE</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="pt-3 sm:pt-4 border-t border-hairline flex flex-wrap gap-3">
+              <a href="#location-hours" class="button-primary w-full text-center justify-center text-xs">
+                BOOK ALIGNMENT FOR YOUR CAR
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Technical Specs Table (spec-cell pattern) -->
+          <div class="grid grid-cols-3 gap-0 border-t border-l border-hairline">
+            <div class="spec-cell border-r border-b">
+              <div class="text-[9px] sm:text-xs text-text-muted tracking-machined uppercase">OUTPUT</div>
+              <div class="text-sm sm:text-lg font-bold text-white mt-0.5 sm:mt-1">510 HP</div>
+            </div>
+            <div class="spec-cell border-r border-b">
+              <div class="text-[9px] sm:text-xs text-text-muted tracking-machined uppercase">0-100 KM/H</div>
+              <div class="text-sm sm:text-lg font-bold text-white mt-0.5 sm:mt-1">3.5 SEC</div>
+            </div>
+            <div class="spec-cell border-r border-b">
+              <div class="text-[9px] sm:text-xs text-text-muted tracking-machined uppercase">TYRE GRIP</div>
+              <div class="text-sm sm:text-lg font-bold text-white mt-0.5 sm:mt-1">1.15 G</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Dashing Sports Car Showcase (HUD bar removed as per review 8) -->
+        <div class="lg:col-span-7">
+          <div class="border border-hairline bg-black relative h-[280px] sm:h-[460px] lg:h-[540px] overflow-hidden flex flex-col group">
+            
+            <!-- High Resolution Dashing Sports Car Image Display with Dynamic Filter -->
+            <div class="relative w-full h-full overflow-hidden">
+              <img id="sports-car-img" src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=90" alt="Dashing BMW M Performance Sports Car" class="w-full h-full object-cover object-center transition-all duration-700 transform group-hover:scale-105">
+              
+              <!-- Subtle Cinematic Vignette -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40"></div>
+
+              <!-- Dashing Overlay Badges -->
+              <div class="absolute top-3 sm:top-5 left-3 sm:left-5 bg-black/90 border border-hairline px-2.5 sm:px-3.5 py-1 sm:py-1.5 flex items-center space-x-2">
+                <span class="m-stripe-badge"></span>
+                <span id="car-caption" class="text-[10px] sm:text-xs font-bold tracking-machined uppercase text-white truncate max-w-[220px] sm:max-w-none">
+                  BMW M4 COMPETITION // TRACK CALIBRATED
+                </span>
+              </div>
+
+              <div class="absolute bottom-3 sm:bottom-5 left-3 sm:left-5 right-3 sm:right-5 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[10px] sm:text-xs font-mono text-text-muted bg-black/85 backdrop-blur-sm p-2 sm:p-3 border border-hairline">
+                <div>CHASSIS: <span class="text-white">LASER 3D CAMBER TESTED</span></div>
+                <div>TYRE FITMENT: <span class="text-white">MICHELIN PILOT SPORT 4S</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= TYRE SIZING & COMPATIBILITY ENGINE ================= -->
+  <section id="tyre-finder" class="py-14 sm:py-24 bg-black border-b border-hairline">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+      
+      <div class="border border-hairline bg-surface-card p-5 sm:p-8 lg:p-14">
+        
+        <div class="max-w-3xl mb-8 sm:mb-10 space-y-2 sm:space-y-3">
+          <div class="flex items-center space-x-2 text-[11px] sm:text-xs tracking-machined text-text-muted uppercase">
+            <span class="m-stripe-badge"></span>
+            <span>VEHICLE COMPATIBILITY DATABASE</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold uppercase tracking-tighthead text-white">
+            SELECT TYRE FITMENT BY VEHICLE.
+          </h2>
+          <p class="text-xs sm:text-sm text-text-body font-light">
+            Match OEM tyre sizing and load index based on your vehicle segment, rim diameter, and driving priorities.
+          </p>
+        </div>
+
+        <!-- Filter Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          
+          <div>
+            <label class="block text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted mb-2">1. VEHICLE SEGMENT</label>
+            <select id="finder-vehicle" class="text-input">
+              <option value="compact">Hatchback (Swift, i20, Tiago, Altroz)</option>
+              <option value="sedan">Sedan (City, Verna, Ciaz, Slavia)</option>
+              <option value="suv" selected>Compact / Mid SUV (Creta, Seltos, Brezza)</option>
+              <option value="4x4">Full 4x4 / Off-Road (Fortuner, Thar, Scorpio-N)</option>
+              <option value="luxury">Luxury / Performance (BMW, Mercedes, Audi)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted mb-2">2. WHEEL DIAMETER</label>
+            <select id="finder-rim" class="text-input">
+              <option value="15">15 Inch</option>
+              <option value="16">16 Inch</option>
+              <option value="17" selected>17 Inch</option>
+              <option value="18">18 Inch</option>
+              <option value="19">19+ Inch Sport</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted mb-2">3. DRIVING DISCIPLINE</label>
+            <select id="finder-driving" class="text-input">
+              <option value="highway" selected>Highway Speed &amp; Wet Grip</option>
+              <option value="comfort">Quiet City Acoustic Comfort</option>
+              <option value="durability">Rough Road Pothole Durability</option>
+              <option value="mileage">High Fuel Economy</option>
+            </select>
+          </div>
+
+          <div class="flex items-end">
+            <button id="finder-submit-btn" class="button-primary w-full h-12 text-center justify-center">
+              MATCH TYRES <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Matched Spec Display Card -->
+        <div id="finder-result" class="border border-hairline bg-surface-soft p-5 sm:p-8">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-2">
+              <div class="flex items-center space-x-3">
+                <span class="m-stripe-badge"></span>
+                <span id="finder-match-brand" class="text-[11px] sm:text-xs font-bold tracking-machined uppercase text-white">
+                  MICHELIN / BRIDGESTONE / CONTINENTAL
+                </span>
+              </div>
+              <h3 id="finder-match-title" class="text-lg sm:text-2xl font-bold uppercase text-white">
+                215/60 R17 96H • ALL-SEASON PRECISION
+              </h3>
+              <p id="finder-match-desc" class="text-xs sm:text-sm text-text-body font-light max-w-2xl leading-relaxed">
+                Optimized for Hyundai Creta, Kia Seltos &amp; Grand Vitara. Reinforced tread blocks for expressway water displacement, low cabin noise, and 5-Year OEM warranty.
+              </p>
+            </div>
+            <div class="flex flex-col sm:flex-row md:flex-col items-start md:items-end justify-between gap-4 border-t md:border-t-0 pt-4 md:pt-0 border-hairline w-full md:w-auto">
+              <div class="text-left md:text-right">
+                <div class="text-[10px] tracking-machined uppercase text-text-muted">ESTIMATED PRICE RANGE</div>
+                <div id="finder-match-price" class="text-xl sm:text-2xl font-bold text-white tracking-tight">₹6,800 – ₹9,200</div>
+              </div>
+              <a id="finder-whatsapp-btn" href="https://wa.me/918126257677?text=Hi%20Singh%20Tyres%20Meerut,%20I%20am%20looking%20for%20215/60%20R17%20tyres.%20Please%20share%20current%20stock%20and%20pricing." target="_blank" rel="noopener" class="button-primary text-xs tracking-machined w-full sm:w-auto text-center justify-center">
+                GET EXACT QUOTE <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= EDITORIAL POSTERS & GALLERY SHOWCASE ================= -->
+  <section id="posters" class="py-14 sm:py-24 bg-surface-soft border-b border-hairline">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+      
+      <!-- Section Header with Category Tabs -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-14 gap-4 sm:gap-6">
+        <div class="space-y-2 sm:space-y-3">
+          <div class="flex items-center space-x-2 text-[11px] sm:text-xs tracking-machined text-text-muted uppercase">
+            <span class="m-stripe-badge"></span>
+            <span>HIGHWAY SUPPORT &amp; CAMPAIGNS</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tighthead text-white">
+            PROMOTIONAL POSTERS &amp; SERVICE BAYS.
+          </h2>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex border-b border-hairline overflow-x-auto no-scrollbar gap-1 pb-0.5">
+          <button class="category-tab active text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 whitespace-nowrap" data-filter="all">ALL</button>
+          <button class="category-tab text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 whitespace-nowrap" data-filter="posters">POSTERS</button>
+          <button class="category-tab text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 whitespace-nowrap" data-filter="bays">SERVICE BAYS</button>
+          <button class="category-tab text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2.5 whitespace-nowrap" data-filter="tyres">WHEELS</button>
+        </div>
+      </div>
+
+      <!-- Feature Photo Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="gallery-container">
+        
+        <!-- Poster 1: NH58 Highway Breakdown Recovery -->
+        <div class="gallery-item border border-hairline bg-surface-card flex flex-col justify-between" data-category="posters">
+          <div class="relative h-52 sm:h-64 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1000&q=80" alt="NH58 Highway Breakdown Van" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              24/7 RAPID DISPATCH
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="text-xs font-mono text-text-muted mb-1">PROMOTIONAL POSTER // 01</div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">NH58 Highway Breakdown Support</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                Emergency tyre blowout and puncture relief along Delhi-Meerut Expressway, Ved Vyas Puri, and Sushant City. Mobile van equipped with hydraulic jacks, vulcanizers, and air supply.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-white">NH58 ON-CALL</span>
+              <a href="tel:08126257677" class="text-link">CALL NOW <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Poster 2: Seasonal Monsoon Tyre Safety Checkup -->
+        <div class="gallery-item border border-hairline bg-surface-card flex flex-col justify-between" data-category="posters">
+          <div class="relative h-52 sm:h-64 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1543465077-db45d34b88a5?auto=format&fit=crop&w=1000&q=80" alt="Seasonal Monsoon Safety Clinic" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              SEASONAL SAFETY CAMPAIGN
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="text-xs font-mono text-text-muted mb-1">PROMOTIONAL POSTER // 02</div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">Seasonal &amp; Monsoon Safety Clinic</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                Complimentary digital tyre tread vernier evaluation, sidewall structural integrity scan, and nitrogen pressure rebalancing to safeguard against highway hydroplaning risks.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-white">FREE CLINIC</span>
+              <a href="#location-hours" class="text-link">SCHEDULE <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Poster 3: 3D Laser Alignment Optical Bay -->
+        <div class="gallery-item border border-hairline bg-surface-card flex flex-col justify-between" data-category="bays">
+          <div class="relative h-52 sm:h-64 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1000&q=80" alt="Laser Alignment Bay" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              GERMAN OPTICAL RIG
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="text-xs font-mono text-text-muted mb-1">SERVICE BAY SHOWCASE</div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">Computerized 3D Alignment Bay</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                High-definition optical targets with rim-protecting clamp fixtures ensure zero scratches on diamond-cut alloys while delivering complete live steering angle diagnostics.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-white">0.01° ACCURACY</span>
+              <a href="#location-hours" class="text-link">LEARN MORE <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo 4: Performance Alloy Wheel Fitments -->
+        <div class="gallery-item border border-hairline bg-surface-card flex flex-col justify-between" data-category="tyres">
+          <div class="relative h-52 sm:h-64 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1578844251758-2f71da64c96f?auto=format&fit=crop&w=1000&q=80" alt="High Performance Alloy Wheel" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              SPORT FITMENTS
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="text-xs font-mono text-text-muted mb-1">ALLOY WHEEL STUDIO</div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">Forged &amp; Diamond-Cut Alloys</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                Lightweight flow-formed and forged alloy wheels for Scorpio-N, Thar, Fortuner, BMW, and Audi with touchless tire bead mounting.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-white">14" TO 22"</span>
+              <a href="tel:08126257677" class="text-link">INQUIRE <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo 5: Mechanical Diagnostic Bay -->
+        <div class="gallery-item border border-hairline bg-surface-card flex flex-col justify-between" data-category="bays">
+          <div class="relative h-52 sm:h-64 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=1000&q=80" alt="Mechanical Workshop Lifts" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              HYDRAULIC LIFTS
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="text-xs font-mono text-text-muted mb-1">WORKSHOP INFRASTRUCTURE</div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">Underbody &amp; Brake Servicing</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                Dual 2-post and in-ground scissor vehicle hoists, computer rotor skimming machines, and digital torque wrench tightening to manufacturer specs.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-white">40-POINT AUDIT</span>
+              <a href="#location-hours" class="text-link">RATES <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo 6: Pure Nitrogen Station -->
+        <div class="gallery-item border border-hairline bg-surface-card flex flex-col justify-between" data-category="tyres">
+          <div class="relative h-52 sm:h-64 overflow-hidden border-b border-hairline">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=80" alt="Nitrogen Generator" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4 bg-black border border-hairline px-3 py-1 text-[11px] font-bold tracking-machined uppercase text-white">
+              99.9% N2 PURITY
+            </div>
+          </div>
+          <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="text-xs font-mono text-text-muted mb-1">AUTOMATED FILL BAR</div>
+              <h3 class="text-lg sm:text-xl font-bold uppercase text-white mb-2">Dual-Chamber Nitrogen Gas</h3>
+              <p class="text-sm text-text-body font-light leading-relaxed">
+                Industrial membrane separation technology providing continuous high-purity dry nitrogen to keep tire temperatures stable under heavy highway loads.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-hairline flex items-center justify-between">
+              <span class="text-xs font-mono text-white">CONSTANT PSI</span>
+              <a href="tel:08126257677" class="text-link">DETAILS <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= ENGINEERING SPEC COMPARISON (TABLE) ================= -->
+  <section id="spec-comparison" class="py-14 sm:py-24 bg-black border-b border-hairline">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+      
+      <div class="max-w-3xl mb-8 sm:mb-16 space-y-3 sm:space-y-4">
+        <div class="flex items-center space-x-2 text-[11px] sm:text-xs tracking-machined text-text-muted uppercase">
+          <span class="m-stripe-badge"></span>
+          <span>TECHNICAL SPECIFICATION MATRIX</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tighthead text-white">
+          PRECISION ENGINEERING VS ROADSIDE METHODS.
+        </h2>
+        <p class="text-xs sm:text-sm text-text-body font-light">
+          European workshop standards versus conventional manual methods.
+        </p>
+      </div>
+
+      <!-- Mobile Horizontal Scroll Hint -->
+      <div class="sm:hidden flex items-center justify-between text-[10px] tracking-machined text-text-muted mb-2 px-1 font-mono">
+        <span>SWIPE TABLE TO COMPARE</span>
+        <span class="flex items-center gap-1.5 text-white">
+          <i class="fa-solid fa-arrow-left text-[9px]"></i>
+          <i class="fa-solid fa-arrows-left-right text-xs animate-pulse"></i>
+          <i class="fa-solid fa-arrow-right text-[9px]"></i>
+        </span>
+      </div>
+
+      <!-- Spec Comparison Table with 1px Hairlines -->
+      <div class="border border-hairline bg-surface-card overflow-x-auto">
+        <table class="min-w-[560px] w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-hairline bg-surface-soft text-[11px] sm:text-xs tracking-machined uppercase font-bold">
+              <th class="p-3.5 sm:p-5 text-text-muted">ENGINEERING PARAMETER</th>
+              <th class="p-3.5 sm:p-5 text-white bg-black border-x border-hairline">
+                <span class="m-stripe-badge mr-2"></span> SINGH TYRES &amp; MOTORS
+              </th>
+              <th class="p-3.5 sm:p-5 text-text-muted">CONVENTIONAL ROADSIDE SHOPS</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline text-xs sm:text-sm font-light">
+            <tr>
+              <td class="p-3.5 sm:p-5 text-white font-normal uppercase">Wheel Alignment Sensor Rig</td>
+              <td class="p-3.5 sm:p-5 text-white font-normal bg-black border-x border-hairline">
+                4-Camera Optical 3D Laser (0.01° Measurement)
+              </td>
+              <td class="p-3.5 sm:p-5 text-text-muted">Manual string wires or inaccurate 2-wheel gauges</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-5 text-white font-normal uppercase">Wheel Mounting Machine</td>
+              <td class="p-3.5 sm:p-5 text-white font-normal bg-black border-x border-hairline">
+                Touchless Robotic Clamp (Zero Alloy Rim Contact)
+              </td>
+              <td class="p-3.5 sm:p-5 text-text-muted">Manual crowbars that bend alloy lips and scratch paint</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-5 text-white font-normal uppercase">Inflation Medium</td>
+              <td class="p-3.5 sm:p-5 text-white font-normal bg-black border-x border-hairline">
+                99.9% Pure Dry Nitrogen Gas
+              </td>
+              <td class="p-3.5 sm:p-5 text-text-muted">Moist atmospheric air that causes valve and rim oxidation</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-5 text-white font-normal uppercase">Lug Nut Tightening</td>
+              <td class="p-3.5 sm:p-5 text-white font-normal bg-black border-x border-hairline">
+                Calibrated Digital Torque Wrench to OEM Spec (Nm)
+              </td>
+              <td class="p-3.5 sm:p-5 text-text-muted">Standing on iron wrenches, stripping wheel hub threads</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-5 text-white font-normal uppercase">Puncture Repair Process</td>
+              <td class="p-3.5 sm:p-5 text-white font-normal bg-black border-x border-hairline">
+                Internal Mushroom Plug Chemical Vulcanization
+              </td>
+              <td class="p-3.5 sm:p-5 text-text-muted">External rope strings that damage tyre steel belts</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-5 text-white font-normal uppercase">Warranty &amp; Documentation</td>
+              <td class="p-3.5 sm:p-5 text-white font-normal bg-black border-x border-hairline">
+                Official GST Invoice &amp; Manufacturer Portal Warranty
+              </td>
+              <td class="p-3.5 sm:p-5 text-text-muted">Verbal claims with no official company recourse</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= PRE-FOOTER FULL-BLEED CTA BAND (BMW ANGEL EYES IN DARKNESS) ================= -->
+  <section class="relative min-h-[440px] sm:min-h-[560px] py-24 sm:py-44 bg-black border-b border-hairline overflow-hidden flex items-center justify-center">
+    
+    <!-- BMW Angel Eyes Headlights Centered in Dashing Mode -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      
+      <!-- Background Exact BMW Angel Eyes Night Shot Image from User -->
+      <img src="https://i.pinimg.com/736x/43/fe/eb/43feeb6cee89e9643052c774dbbccf69.jpg" 
+           alt="BMW Angel Eyes Night Shot Headlights" 
+           class="w-full h-full object-cover object-center filter contrast-125 brightness-110">
+
+      <!-- Balanced Vignettes ensuring Angel Eyes in the center shine vividly -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/70"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60"></div>
+    </div>
+
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 text-center relative z-10 space-y-4 sm:space-y-6">
+      <div class="flex items-center justify-center space-x-2 text-[11px] sm:text-xs tracking-machined text-text-muted uppercase">
+        <span class="m-stripe-badge"></span>
+        <span class="text-white drop-shadow-md">EXPERIENCE PRECISION ROAD HOLDING</span>
+      </div>
+      <h2 class="text-2xl sm:text-4xl lg:text-6xl font-bold uppercase tracking-tighthead text-white max-w-4xl mx-auto drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)] leading-tight">
+        SCHEDULE YOUR 3D ALIGNMENT OR TYRE FITMENT.
+      </h2>
+      <p class="text-sm sm:text-base text-text-body font-light max-w-xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+        Visit our flagship workshop along NH58 or speak directly with our service engineers.
+      </p>
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 pt-4 w-full max-w-sm sm:max-w-none mx-auto">
+        <a href="#location-hours" class="button-primary w-full sm:w-auto text-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+          BOOK APPOINTMENT NOW
+        </a>
+        <a href="https://maps.google.com/?cid=17124112142667563739" target="_blank" rel="noopener" class="button-primary-outline w-full sm:w-auto text-center justify-center bg-black/60 backdrop-blur-sm">
+          OPEN GOOGLE MAPS
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LOCATION, HOURS & QUICK INQUIRY FORM ================= -->
+  <section id="location-hours" class="py-14 sm:py-24 bg-black border-b border-hairline">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        
+        <!-- Left Column: Exact Address & Schedule (Review 11: Phone number masked with Call Now) -->
+        <div class="lg:col-span-5 space-y-6 sm:space-y-8">
+          
+          <div class="space-y-2 sm:space-y-3">
+            <div class="flex items-center space-x-2 text-[11px] sm:text-xs tracking-machined text-text-muted uppercase">
+              <span class="m-stripe-badge"></span>
+              <span>WORKSHOP HEADQUARTERS</span>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-bold uppercase tracking-tighthead text-white">
+              LOCATION &amp; OPERATING HOURS.
+            </h2>
+          </div>
+
+          <!-- Official Address Card -->
+          <div class="border border-hairline bg-surface-card p-5 sm:p-8 space-y-4">
+            <div class="text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted">OFFICIAL WORKSHOP ADDRESS</div>
+            <p class="text-sm sm:text-base text-white font-normal leading-relaxed">
+              <strong>Singh Tyres &amp; Motors</strong><br>
+              NH58, Ved Vyas Puri - Phase 1,<br>
+              Ansal's Sushant City, Meerut,<br>
+              Uttar Pradesh 250002
+            </p>
+            <div class="pt-4 border-t border-hairline flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-4">
+              <a href="https://maps.google.com/?cid=17124112142667563739" target="_blank" rel="noopener" class="button-primary text-xs w-full sm:w-auto text-center justify-center">
+                GOOGLE MAPS <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+              </a>
+              <!-- Phone number replaced with Call Now & WhatsApp buttons (Review 11) -->
+              <a href="tel:08126257677" class="button-primary text-xs w-full sm:w-auto text-center justify-center">
+                CALL NOW
+              </a>
+              <a href="https://wa.me/918126257677" target="_blank" rel="noopener" class="button-secondary text-xs w-full sm:w-auto text-center justify-center">
+                <i class="fa-brands fa-whatsapp mr-1.5"></i> WHATSAPP
+              </a>
+            </div>
+          </div>
+
+          <!-- Operating Hours Card -->
+          <div class="border border-hairline bg-surface-card p-5 sm:p-8 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted">WORKSHOP SCHEDULE</div>
+              <span id="live-hours-pill" class="border border-hairline px-3 py-1 text-[11px] font-mono text-white">
+                OPEN TODAY
+              </span>
+            </div>
+
+            <div class="space-y-3 divide-y divide-hairline text-xs sm:text-sm font-light pt-2">
+              <div class="flex justify-between items-center pt-2">
+                <span class="text-white font-normal">Tuesday to Sunday:</span>
+                <span class="text-white font-mono">9:00 AM – 9:00 PM</span>
+              </div>
+              <div class="flex justify-between items-center pt-2">
+                <span class="text-white font-normal">Monday:</span>
+                <span class="text-text-muted font-mono uppercase">CLOSED (MAINTENANCE)</span>
+              </div>
+              <div class="flex justify-between items-center pt-2 text-xs text-text-muted">
+                <span>Direct Hotline:</span>
+                <a href="tel:08126257677" class="text-white font-mono underline hover:text-white">DIAL OPERATOR</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Highway Support Card -->
+          <div class="border border-hairline bg-surface-soft p-5 sm:p-6">
+            <div class="flex items-start space-x-3">
+              <span class="m-stripe-badge mt-1"></span>
+              <div class="w-full">
+                <div class="text-[11px] sm:text-xs font-bold tracking-machined uppercase text-white">NH58 EMERGENCY SUPPORT</div>
+                <p class="text-xs text-text-body font-light mt-1 leading-relaxed">
+                  Immediate roadside dispatch for flat tyres, tyre punctures, and battery jump starts.
+                </p>
+                <div class="mt-3">
+                  <a href="tel:08126257677" class="button-primary text-xs py-2 px-4 h-9 w-full sm:w-auto text-center justify-center">
+                    DISPATCH RESCUE UNIT
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Quick Inquiry Form (Review 10: Empty clean placeholders) & Google Map Embed -->
+        <div class="lg:col-span-7 space-y-6 sm:space-y-8">
+          
+          <!-- Inquiry Form Card -->
+          <div id="quick-inquiry" class="border border-hairline bg-surface-card p-5 sm:p-8 lg:p-10 relative">
+            <div class="mb-6 sm:mb-8 space-y-2">
+              <div class="text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted">PRIORITY BOOKING FORM</div>
+              <h3 class="text-xl sm:text-2xl font-bold uppercase text-white">SCHEDULE SERVICE OR REQUEST A QUOTE</h3>
+              <p class="text-xs text-text-body font-light">Fill below to reserve your 3D alignment slot or verify tyre brand inventory.</p>
+            </div>
+
+            <form id="inquiry-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div>
+                  <label class="block text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted mb-1.5 sm:mb-2">FULL NAME *</label>
+                  <input type="text" id="form-name" required placeholder="" class="text-input">
+                </div>
+                <div>
+                  <label class="block text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted mb-1.5 sm:mb-2">PHONE NUMBER *</label>
+                  <input type="tel" id="form-phone" required placeholder="" class="text-input">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div>
+                  <label class="block text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted mb-1.5 sm:mb-2">VEHICLE MODEL</label>
+                  <input type="text" id="form-vehicle" placeholder="" class="text-input">
+                </div>
+                <div>
+                  <label class="block text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted mb-1.5 sm:mb-2">REQUIRED SERVICE *</label>
+                  <select id="form-service" required class="text-input">
+                    <option value="3D Wheel Alignment &amp; Balancing">3D Wheel Alignment &amp; Balancing</option>
+                    <option value="New Multi-Brand Tyres Purchase">New Multi-Brand Tyres Purchase</option>
+                    <option value="Nitrogen Inflation (4 Wheels)">Nitrogen Inflation (4 Wheels)</option>
+                    <option value="Precision Puncture Repair">Precision Puncture Repair</option>
+                    <option value="General Motor Servicing">General Motor Servicing</option>
+                    <option value="Alloy Rim Bend Straightening">Alloy Rim Bend Straightening</option>
+                    <option value="NH58 Highway Breakdown Help">NH58 Highway Breakdown Help</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] sm:text-xs font-bold tracking-machined uppercase text-text-muted mb-1.5 sm:mb-2">SPECIFIC NOTES / PREFERRED DATE</label>
+                <textarea id="form-notes" rows="3" placeholder="" class="text-input" style="height: auto; padding: 12px 16px;"></textarea>
+              </div>
+
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-4">
+                <button type="submit" class="button-primary w-full sm:flex-1 h-12 text-center justify-center">
+                  SUBMIT INQUIRY <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                </button>
+                <button type="button" id="form-whatsapp-btn" class="button-secondary w-full sm:w-auto h-12 text-center justify-center">
+                  <i class="fa-brands fa-whatsapp mr-2 text-sm"></i> WHATSAPP DIRECT
+                </button>
+              </div>
+            </form>
+
+            <!-- Success Overlay Modal -->
+            <div id="form-success-toast" class="hidden absolute inset-0 bg-black/95 flex flex-col items-center justify-center p-6 sm:p-8 text-center z-20">
+              <div class="text-3xl text-white mb-3"><i class="fa-solid fa-check"></i></div>
+              <h4 class="text-xl sm:text-2xl font-bold uppercase text-white">INQUIRY DISPATCHED</h4>
+              <p class="text-xs sm:text-sm text-text-body font-light max-w-md mt-2">
+                Thank you. Our workshop manager at Singh Tyres &amp; Motors will contact you promptly to confirm your service slot or provide your tyre quotation.
+              </p>
+              <div class="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+                <a href="tel:08126257677" class="button-primary text-xs w-full sm:w-auto text-center justify-center">CALL NOW</a>
+                <button id="toast-close-btn" class="button-secondary text-xs w-full sm:w-auto text-center justify-center">CLOSE</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Google Maps Embed -->
+          <div class="border border-hairline bg-black overflow-hidden">
+            <div class="p-3 bg-surface-card border-b border-hairline flex items-center justify-between text-[11px] sm:text-xs tracking-machined uppercase font-bold">
+              <span class="text-white">GOOGLE MAPS SATELLITE (NH58 MEERUT)</span>
+              <a href="https://maps.google.com/?cid=17124112142667563739" target="_blank" rel="noopener" class="text-text-muted hover:text-white transition">
+                VIEW APP &rarr;
+              </a>
+            </div>
+            <div class="relative w-full h-64 sm:h-72">
+              <iframe 
+                src="https://maps.google.com/maps?q=Singh%20Tyres%20and%20Motors,%20NH58,%20Ved%20Vyas%20Puri,%20Meerut&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                class="w-full h-full border-0 filter grayscale contrast-125" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Singh Tyres &amp; Motors Google Map">
+              </iframe>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= GOOGLE MAPS VERIFIED TESTIMONIALS (REPLACED FAQ AS PER REVIEW 12) ================= -->
+  <section id="google-reviews" class="py-14 sm:py-24 bg-surface-soft border-b border-hairline">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-16 gap-4 sm:gap-6">
+        <div class="space-y-2 sm:space-y-3">
+          <div class="flex items-center space-x-2 text-[11px] sm:text-xs tracking-machined text-text-muted uppercase">
+            <span class="m-stripe-badge"></span>
+            <span>OFFICIAL GOOGLE MAPS REVIEWS</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tighthead text-white">
+            DRIVER REVIEWS FROM GOOGLE MAPS.
+          </h2>
+          <p class="text-xs sm:text-sm text-text-body font-light">
+            Verified ratings directly from drivers visiting Singh Tyres &amp; Motors on NH58 Meerut.
+          </p>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <div class="spec-cell border border-hairline p-3 sm:p-4 flex items-center space-x-3 sm:space-x-4">
+            <div>
+              <div class="text-xl sm:text-2xl font-bold text-white tracking-tight">5.0 ★</div>
+              <div class="text-[9px] sm:text-[10px] tracking-machined uppercase text-text-muted">1,200+ GOOGLE REVIEWS</div>
+            </div>
+            <a href="https://maps.google.com/?cid=17124112142667563739" target="_blank" rel="noopener" class="button-secondary text-xs py-2 px-3 h-9">
+              RATE ON MAPS <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-[10px]"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6-Up Testimonials Grid Directly from Google Maps -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        
+        <!-- Review 1 -->
+        <div class="border border-hairline bg-surface-card p-5 sm:p-8 flex flex-col justify-between space-y-4 sm:space-y-6">
+          <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-center justify-between text-xs font-mono text-text-muted">
+              <span class="text-white font-bold text-sm">★★★★★</span>
+              <span class="flex items-center gap-1.5 text-white font-bold text-xs">
+                <i class="fa-brands fa-google text-xs"></i> VERIFIED LOCAL GUIDE
+              </span>
+            </div>
+            <p class="text-sm text-text-body font-light leading-relaxed">
+              "Best tyre and 3D alignment facility on the entire Delhi-Meerut Expressway. My Mahindra Thar was pulling heavily at 90 km/h. They calibrated camber and caster on their computerized optical rig in 20 minutes. Rock-solid highway stability now."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-hairline flex items-center justify-between">
+            <div>
+              <div class="text-xs sm:text-sm font-bold uppercase text-white">Vikramaditya Gurjar</div>
+              <div class="text-xs text-text-muted font-light mt-0.5">Mahindra Thar 4x4 • Meerut</div>
+            </div>
+            <span class="text-[10px] sm:text-[11px] font-mono text-text-muted">2 WEEKS AGO</span>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="border border-hairline bg-surface-card p-5 sm:p-8 flex flex-col justify-between space-y-4 sm:space-y-6">
+          <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-center justify-between text-xs font-mono text-text-muted">
+              <span class="text-white font-bold text-sm">★★★★★</span>
+              <span class="flex items-center gap-1.5 text-white font-bold text-xs">
+                <i class="fa-brands fa-google text-xs"></i> NH58 RESCUE
+              </span>
+            </div>
+            <p class="text-sm text-text-body font-light leading-relaxed">
+              "Severe tyre blowout near Ved Vyas Puri at 8:30 PM with family inside. Dialled their helpline and their mobile rescue van arrived at our car in 20 minutes with a fresh Bridgestone tyre and hydraulic jack. Pure lifesavers."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-hairline flex items-center justify-between">
+            <div>
+              <div class="text-xs sm:text-sm font-bold uppercase text-white">Amitav Sengupta</div>
+              <div class="text-xs text-text-muted font-light mt-0.5">Toyota Fortuner • Highway Commuter</div>
+            </div>
+            <span class="text-[10px] sm:text-[11px] font-mono text-text-muted">1 MONTH AGO</span>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="border border-hairline bg-surface-card p-5 sm:p-8 flex flex-col justify-between space-y-4 sm:space-y-6">
+          <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-center justify-between text-xs font-mono text-text-muted">
+              <span class="text-white font-bold text-sm">★★★★★</span>
+              <span class="flex items-center gap-1.5 text-white font-bold text-xs">
+                <i class="fa-brands fa-google text-xs"></i> OEM TYRE PURCHASE
+              </span>
+            </div>
+            <p class="text-sm text-text-body font-light leading-relaxed">
+              "Purchased a set of 4 Michelin Primacy tyres for my Honda City. Best rates in Meerut, genuine current year DOT manufacturing dates, and complimentary 3D laser alignment plus pure nitrogen fill. Honest and professional staff."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-hairline flex items-center justify-between">
+            <div>
+              <div class="text-xs sm:text-sm font-bold uppercase text-white">Rahul Sharma</div>
+              <div class="text-xs text-text-muted font-light mt-0.5">Honda City ZX • Sushant City</div>
+            </div>
+            <span class="text-[10px] sm:text-[11px] font-mono text-text-muted">3 WEEKS AGO</span>
+          </div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="border border-hairline bg-surface-card p-5 sm:p-8 flex flex-col justify-between space-y-4 sm:space-y-6">
+          <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-center justify-between text-xs font-mono text-text-muted">
+              <span class="text-white font-bold text-sm">★★★★★</span>
+              <span class="flex items-center gap-1.5 text-white font-bold text-xs">
+                <i class="fa-brands fa-google text-xs"></i> LUXURY VEHICLE ALIGNMENT
+              </span>
+            </div>
+            <p class="text-sm text-text-body font-light leading-relaxed">
+              "Brought my BMW 3 Series for dynamic wheel balancing and 3D alignment. Their scratch-free clamps protect the diamond-cut rims completely. Steering feel is razor sharp. Highly recommended for European cars."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-hairline flex items-center justify-between">
+            <div>
+              <div class="text-xs sm:text-sm font-bold uppercase text-white">Jaspreet Singh Dhillon</div>
+              <div class="text-xs text-text-muted font-light mt-0.5">BMW 330i M Sport • Meerut Cantt</div>
+            </div>
+            <span class="text-[10px] sm:text-[11px] font-mono text-text-muted">1 MONTH AGO</span>
+          </div>
+        </div>
+
+        <!-- Review 5 -->
+        <div class="border border-hairline bg-surface-card p-5 sm:p-8 flex flex-col justify-between space-y-4 sm:space-y-6">
+          <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-center justify-between text-xs font-mono text-text-muted">
+              <span class="text-white font-bold text-sm">★★★★★</span>
+              <span class="flex items-center gap-1.5 text-white font-bold text-xs">
+                <i class="fa-brands fa-google text-xs"></i> VULCANIZED REPAIR
+              </span>
+            </div>
+            <p class="text-sm text-text-body font-light leading-relaxed">
+              "They do internal mushroom patch vulcanization instead of regular roadside rope strips that damage tyre belts. Got my Creta tyre sealed permanently. Very clean workshop and transparent pricing."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-hairline flex items-center justify-between">
+            <div>
+              <div class="text-xs sm:text-sm font-bold uppercase text-white">Naveen Choudhary</div>
+              <div class="text-xs text-text-muted font-light mt-0.5">Hyundai Creta SX • Ved Vyas Puri</div>
+            </div>
+            <span class="text-[10px] sm:text-[11px] font-mono text-text-muted">2 MONTHS AGO</span>
+          </div>
+        </div>
+
+        <!-- Review 6 -->
+        <div class="border border-hairline bg-surface-card p-5 sm:p-8 flex flex-col justify-between space-y-4 sm:space-y-6">
+          <div class="space-y-3 sm:space-y-4">
+            <div class="flex items-center justify-between text-xs font-mono text-text-muted">
+              <span class="text-white font-bold text-sm">★★★★★</span>
+              <span class="flex items-center gap-1.5 text-white font-bold text-xs">
+                <i class="fa-brands fa-google text-xs"></i> 4X4 ALLOY CARE
+              </span>
+            </div>
+            <p class="text-sm text-text-body font-light leading-relaxed">
+              "Got my Scorpio-N alloy rim bend fixed with their hydraulic straightening press after hitting an expressway crater. Saved me from buying a whole new rim. Great craftsmanship."
+            </p>
+          </div>
+          <div class="pt-4 border-t border-hairline flex items-center justify-between">
+            <div>
+              <div class="text-xs sm:text-sm font-bold uppercase text-white">Harsh Vardhan Tyagi</div>
+              <div class="text-xs text-text-muted font-light mt-0.5">Mahindra Scorpio-N • Meerut</div>
+            </div>
+            <span class="text-[10px] sm:text-[11px] font-mono text-text-muted">3 MONTHS AGO</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= 4-COLUMN FOOTER (REVIEW 13: FLUXBOX STUDIO DEVELOPER CREDITS) ================= -->
+  <footer class="bg-black py-12 sm:py-16 text-text-muted border-t border-hairline">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-10 sm:mb-16">
+        
+        <!-- Col 1: Wordmark & Statement -->
+        <div class="space-y-4">
+          <div class="flex items-center space-x-2">
+            <span class="m-stripe-badge"></span>
+            <span class="text-lg font-bold uppercase text-white tracking-tight">SINGH MOTORS</span>
+          </div>
+          <p class="text-xs text-text-body font-light leading-relaxed">
+            Meerut's flagship centre for computerized 3D optical wheel alignment, high-performance tyre fitment, pure aviation nitrogen, and 24/7 highway breakdown assistance along NH58.
+          </p>
+          <div class="flex space-x-3 pt-2">
+            <a href="https://maps.google.com/?cid=17124112142667563739" target="_blank" rel="noopener" class="button-icon text-xs" style="width: 36px; height: 36px;"><i class="fa-brands fa-google"></i></a>
+            <a href="https://wa.me/918126257677" target="_blank" rel="noopener" class="button-icon text-xs" style="width: 36px; height: 36px;"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="tel:08126257677" class="button-icon text-xs" style="width: 36px; height: 36px;"><i class="fa-solid fa-phone"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Services -->
+        <div class="space-y-3">
+          <div class="text-xs font-bold tracking-machined uppercase text-white">CAPABILITIES</div>
+          <ul class="space-y-2 text-xs font-light">
+            <li><a href="#services" class="hover:text-white transition">Multi-Brand Tyres Sales</a></li>
+            <li><a href="#services" class="hover:text-white transition">3D Laser Wheel Alignment</a></li>
+            <li><a href="#services" class="hover:text-white transition">Dynamic Wheel Balancing</a></li>
+            <li><a href="#services" class="hover:text-white transition">99.9% Pure Nitrogen Gas</a></li>
+            <li><a href="#services" class="hover:text-white transition">Mushroom Vulcanization</a></li>
+            <li><a href="#services" class="hover:text-white transition">Alloy Rim Restoration</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Quick Navigation -->
+        <div class="space-y-3">
+          <div class="text-xs font-bold tracking-machined uppercase text-white">NAVIGATION</div>
+          <ul class="space-y-2 text-xs font-light">
+            <li><a href="#sports-car-studio" class="hover:text-white transition">Sports Car Studio</a></li>
+            <li><a href="#tyre-finder" class="hover:text-white transition">Tyre Sizing Database</a></li>
+            <li><a href="#posters" class="hover:text-white transition">NH58 Breakdown Poster</a></li>
+            <li><a href="#spec-comparison" class="hover:text-white transition">Engineering Comparison</a></li>
+            <li><a href="#google-reviews" class="hover:text-white transition">Google Maps Reviews</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Location & Operating Hours -->
+        <div class="space-y-3 text-xs font-light">
+          <div class="text-xs font-bold tracking-machined uppercase text-white">LOCATION &amp; TIMINGS</div>
+          <p class="text-text-body">
+            NH58, Ved Vyas Puri - Phase 1,<br>
+            Ansal's Sushant City, Meerut 250002
+          </p>
+          <p>
+            <strong class="text-white font-normal">Contact:</strong> <a href="#location-hours" class="hover:underline text-white font-bold">Visit or Book Online</a>
+          </p>
+          <p>
+            <strong class="text-white font-normal">Hours:</strong> Tue – Sun: 9:00 AM – 9:00 PM<br>
+            <span class="text-text-muted font-mono uppercase">Closed Mondays</span>
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Bottom Disclaimer, CID & Fluxbox Studio Developer Credit (Review 13) -->
+      <div class="pt-6 sm:pt-8 border-t border-hairline flex flex-col sm:flex-row items-center justify-between text-xs text-text-muted gap-2 text-center sm:text-left">
+        <p>
+          Designed &amp; Developed by <strong class="text-white font-bold tracking-wide">Fluxbox Studio</strong> | © 2026 Singh Tyres &amp; Motors. All Rights Reserved.
+        </p>
+        <p class="font-mono text-[11px] mt-2 sm:mt-0">
+          GOOGLE MAPS CID: <a href="https://maps.google.com/?cid=17124112142667563739" target="_blank" rel="noopener" class="underline text-white">17124112142667563739</a>
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= MOBILE STICKY ACTION BAR ================= -->
+  <div class="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-t border-hairline px-3 py-2 mobile-safe-bottom flex items-center justify-around">
+    <a href="tel:08126257677" class="flex flex-col items-center text-white py-1 text-center active:scale-95 transition-transform">
+      <div class="w-9 h-9 bg-surface-card border border-hairline flex items-center justify-center text-xs mb-1 hover:border-white transition-colors">
+        <i class="fa-solid fa-phone"></i>
+      </div>
+      <span class="text-[9px] tracking-machined font-bold uppercase">CALL</span>
+    </a>
+
+    <a href="https://wa.me/918126257677?text=Hi%20Singh%20Tyres%20Meerut,%20I%20need%20tyre%20service%20/%20alignment." target="_blank" rel="noopener" class="flex flex-col items-center text-white py-1 text-center active:scale-95 transition-transform">
+      <div class="w-9 h-9 bg-surface-card border border-hairline flex items-center justify-center text-xs mb-1 hover:border-white transition-colors">
+        <i class="fa-brands fa-whatsapp text-sm"></i>
+      </div>
+      <span class="text-[9px] tracking-machined font-bold uppercase">WHATSAPP</span>
+    </a>
+
+    <a href="https://maps.google.com/?cid=17124112142667563739" target="_blank" rel="noopener" class="flex flex-col items-center text-white py-1 text-center active:scale-95 transition-transform">
+      <div class="w-9 h-9 bg-surface-card border border-hairline flex items-center justify-center text-xs mb-1 hover:border-white transition-colors">
+        <i class="fa-solid fa-location-arrow"></i>
+      </div>
+      <span class="text-[9px] tracking-machined font-bold uppercase">MAP</span>
+    </a>
+
+    <a href="#location-hours" class="flex flex-col items-center text-white py-1 text-center active:scale-95 transition-transform">
+      <div class="w-9 h-9 bg-surface-card border border-hairline flex items-center justify-center text-xs mb-1 hover:border-white transition-colors">
+        <i class="fa-solid fa-calendar-check"></i>
+      </div>
+      <span class="text-[9px] tracking-machined font-bold uppercase">BOOK</span>
+    </a>
+  </div>
+
+
+  <!-- ================= JAVASCRIPT: LOGIC & AUDIO ================= -->
+  <script>
+    /* =================================================================
+       1. WEB AUDIO SYNTHESIZER
+       ================================================================= */
+    let audioCtx = null;
+    let soundEnabled = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playMachinedClick() {
+      if (!soundEnabled) return;
+      initAudio();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.06);
+      } catch (e) {}
+    }
+
+    function playEngineRev() {
+      if (!soundEnabled) return;
+      initAudio();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(320, audioCtx.currentTime + 0.4);
+        osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.7);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.14, audioCtx.currentTime + 0.3);
+        gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.75);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.8);
+      } catch (e) {}
+    }
+
+    const soundToggleBtn = document.getElementById('sound-toggle-btn');
+    const audioWave = document.getElementById('audio-wave');
+
+    if (soundToggleBtn) {
+      soundToggleBtn.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        if (soundEnabled) {
+          initAudio();
+          audioWave.classList.remove('audio-paused');
+          playEngineRev();
+        } else {
+          audioWave.classList.add('audio-paused');
+        }
+      });
+    }
+
+    document.querySelectorAll('button, a.button-primary, a.button-secondary, a.button-primary-outline').forEach(btn => {
+      btn.addEventListener('click', () => {
+        playMachinedClick();
+      });
+    });
+
+
+    /* =================================================================
+       2. CONTINUOUS DRIFTING TYRE SMOKE CANVAS SIMULATION
+       ================================================================= */
+    function initDriftSmokeCanvas() {
+      const canvas = document.getElementById('drift-smoke-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      let w = canvas.width = canvas.parentElement.offsetWidth || window.innerWidth;
+      let h = canvas.height = canvas.parentElement.offsetHeight || window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        w = canvas.width = canvas.parentElement.offsetWidth || window.innerWidth;
+        h = canvas.height = canvas.parentElement.offsetHeight || window.innerHeight;
+      });
+
+      const particles = [];
+      const count = 45;
+
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: h - Math.random() * (h * 0.4),
+          radius: Math.random() * 80 + 40,
+          vx: -(Math.random() * 2 + 1.2),
+          vy: -(Math.random() * 0.8 + 0.2),
+          alpha: Math.random() * 0.25 + 0.08,
+          growth: Math.random() * 0.4 + 0.2
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.radius += p.growth;
+          p.alpha -= 0.0008;
+
+          if (p.x < -p.radius || p.y < -p.radius || p.alpha <= 0) {
+            p.x = w + Math.random() * 100;
+            p.y = h - Math.random() * (h * 0.35);
+            p.radius = Math.random() * 60 + 30;
+            p.alpha = Math.random() * 0.28 + 0.08;
+          }
+
+          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+          grad.addColorStop(0, `rgba(255, 255, 255, ${p.alpha * 0.4})`);
+          grad.addColorStop(0.5, `rgba(200, 210, 225, ${p.alpha * 0.2})`);
+          grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+
+    /* =================================================================
+       3. INTERACTIVE SPORTS CAR SHOWCASE STUDIO
+       ================================================================= */
+    const sportsCarImg = document.getElementById('sports-car-img');
+    const carCaption = document.getElementById('car-caption');
+
+    const carImages = {
+      green: {
+        drift: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=90",
+        front: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=90",
+        detail: "https://images.unsplash.com/photo-1578844251758-2f71da64c96f?auto=format&fit=crop&w=1400&q=90",
+        title: "BMW M4 // ISLE OF MAN GREEN // TRACK CALIBRATED"
+      },
+      white: {
+        drift: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1400&q=90",
+        front: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=90",
+        detail: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=90",
+        title: "BMW M3 COMPETITION // ALPINE WHITE // HIGHWAY SPEC"
+      },
+      frozen: {
+        drift: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=90",
+        front: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1400&q=90",
+        detail: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=90",
+        title: "BMW M8 COUPE // FROZEN DEEP GREY // PRECISION CAMBER"
+      }
+    };
+
+    let selectedColor = 'green';
+    let selectedAngle = 'drift';
+
+    function updateCarDisplay() {
+      if (!sportsCarImg) return;
+      sportsCarImg.style.opacity = '0.3';
+      setTimeout(() => {
+        const item = carImages[selectedColor];
+        sportsCarImg.src = item[selectedAngle] || item.drift;
+        if (carCaption) carCaption.textContent = item.title;
+        sportsCarImg.style.opacity = '1';
+      }, 200);
+    }
+
+    document.querySelectorAll('.car-color-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.car-color-btn').forEach(b => b.classList.remove('border-white', 'text-white'));
+        e.currentTarget.classList.add('border-white', 'text-white');
+        selectedColor = e.currentTarget.getAttribute('data-car');
+        updateCarDisplay();
+        playMachinedClick();
+      });
+    });
+
+    document.querySelectorAll('.car-angle-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.car-angle-btn').forEach(b => b.classList.remove('border-white', 'text-white'));
+        e.currentTarget.classList.add('border-white', 'text-white');
+        selectedAngle = e.currentTarget.getAttribute('data-angle');
+        updateCarDisplay();
+        playMachinedClick();
+      });
+    });
+
+
+    /* =================================================================
+       4. TYRE FINDER LOGIC
+       ================================================================= */
+    document.getElementById('finder-submit-btn')?.addEventListener('click', () => {
+      const v = document.getElementById('finder-vehicle').value;
+      const r = document.getElementById('finder-rim').value;
+
+      let spec = '215/60 R17 96H';
+      let desc = 'Optimized for Hyundai Creta, Kia Seltos & Grand Vitara. Reinforced tread blocks for expressway water displacement, low cabin noise, and 5-Year OEM warranty.';
+      let price = '₹6,800 – ₹9,200';
+
+      if (v === 'compact') {
+        spec = `185/65 R${r} 88T • HIGHWAY TOURING`;
+        desc = 'High mileage compound optimized for Swift, i20, and Baleno. Exceptional fuel economy and enhanced sidewall protection against city potholes.';
+        price = '₹3,600 – ₹5,400';
+      } else if (v === 'sedan') {
+        spec = `205/55 R${r} 91V • SPORT TOURING`;
+        desc = 'Optimized for Honda City, Verna, and Slavia. Acoustic noise reduction sipes and precise steering feedback for high-speed expressways.';
+        price = '₹5,500 – ₹7,800';
+      } else if (v === '4x4') {
+        spec = `265/65 R${r} 112T • ALL-TERRAIN HEAVY DUTY`;
+        desc = 'Engineered for Fortuner, Scorpio-N, and Thar. Reinforced 3-ply sidewall with stone ejectors and mud lugs.';
+        price = '₹11,500 – ₹16,800';
+      } else if (v === 'luxury') {
+        spec = `245/45 R${r} 98Y • M HIGH PERFORMANCE`;
+        desc = 'Approved OEM star-marked fitment for BMW M Performance, Mercedes-Benz, and Audi. Rated up to 300 km/h.';
+        price = '₹16,000 – ₹24,000';
+      }
+
+      document.getElementById('finder-match-title').textContent = spec;
+      document.getElementById('finder-match-desc').textContent = desc;
+      document.getElementById('finder-match-price').textContent = price;
+
+      const waText = encodeURIComponent(`Hi Singh Tyres Meerut, I am inquiring about ${spec} tyres for my vehicle. Please share stock availability and best price.`);
+      document.getElementById('finder-whatsapp-btn').href = `https://wa.me/918126257677?text=${waText}`;
+
+      playMachinedClick();
+    });
+
+
+    /* =================================================================
+       5. GALLERY CATEGORY TABS
+       ================================================================= */
+    document.querySelectorAll('.category-tab').forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+
+        const filter = e.currentTarget.getAttribute('data-filter');
+        document.querySelectorAll('.gallery-item').forEach(item => {
+          const cat = item.getAttribute('data-category');
+          if (filter === 'all' || cat === filter) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+        playMachinedClick();
+      });
+    });
+
+
+    /* =================================================================
+       6. QUICK INQUIRY FORM & WHATSAPP
+       ================================================================= */
+    const inquiryForm = document.getElementById('inquiry-form');
+    const toast = document.getElementById('form-success-toast');
+
+    inquiryForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (window.confetti) confetti({ particleCount: 60, spread: 50, origin: { y: 0.6 } });
+      playEngineRev();
+      toast?.classList.remove('hidden');
+      inquiryForm.reset();
+    });
+
+    document.getElementById('toast-close-btn')?.addEventListener('click', () => {
+      toast?.classList.add('hidden');
+    });
+
+    document.getElementById('form-whatsapp-btn')?.addEventListener('click', () => {
+      const name = document.getElementById('form-name').value || 'Customer';
+      const phone = document.getElementById('form-phone').value || '';
+      const vehicle = document.getElementById('form-vehicle').value || 'Car';
+      const service = document.getElementById('form-service').value;
+      const notes = document.getElementById('form-notes').value || '';
+
+      const text = encodeURIComponent(
+        `*Singh Tyres & Motors Booking Inquiry*\n\n` +
+        `👤 *Name:* ${name}\n` +
+        `📞 *Phone:* ${phone}\n` +
+        `🚗 *Vehicle:* ${vehicle}\n` +
+        `🔧 *Service:* ${service}\n` +
+        `📝 *Notes:* ${notes}\n\n` +
+        `Please confirm slot availability at your NH58 Meerut workshop.`
+      );
+      window.open(`https://wa.me/918126257677?text=${text}`, '_blank');
+    });
+
+
+    /* =================================================================
+       7. INITIALIZATION
+       ================================================================= */
+    window.addEventListener('DOMContentLoaded', () => {
+      initDriftSmokeCanvas();
+    });
+  </script>
+
+</body>
+</html>
